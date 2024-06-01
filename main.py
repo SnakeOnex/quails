@@ -1,24 +1,31 @@
+
 import matplotlib.pyplot as plt
 import numpy as np
 from datetime import date
 import pandas as pd
 import random
 
+palette = {
+  "cordovan": "#AE6765",
+  "spaceCadet": "#191D37",
+  "ultraViolet": "#635F7D",
+}
+
 # Define a style dictionary
 mpl_style = {
     # Figure settings
     'figure.figsize': (10, 6),
-    'figure.facecolor': 'white',
-    'figure.edgecolor': 'gray',
+    'figure.facecolor': palette['spaceCadet'],
+    'figure.edgecolor': palette['ultraViolet'],
     'figure.autolayout': True,
 
     # Axes settings
     'axes.titlesize': 'x-large',
     'axes.titlepad': 15,
     'axes.labelsize': 'large',
-    'axes.labelcolor': 'black',
-    'axes.facecolor': 'white',
-    'axes.edgecolor': 'lightgray',
+    'axes.labelcolor': palette['ultraViolet'],
+    'axes.facecolor': palette['spaceCadet'],
+    'axes.edgecolor': palette['ultraViolet'],
     'axes.grid': True,
     'axes.axisbelow': True,
     'axes.linewidth': 1.2,
@@ -35,10 +42,10 @@ mpl_style = {
     'font.sans-serif': ['Arial', 'DejaVu Sans', 'Liberation Sans', 'Bitstream Vera Sans', 'sans-serif'],
 
     # Tick settings
-    'xtick.color': 'black',
+    'xtick.color': palette['ultraViolet'],
     'xtick.direction': 'out',
     'xtick.labelsize': 'medium',
-    'ytick.color': 'black',
+    'ytick.color': palette['ultraViolet'],
     'ytick.direction': 'out',
     'ytick.labelsize': 'medium',
 
@@ -63,10 +70,16 @@ mpl_style = {
     'savefig.dpi': 100,
     'savefig.format': 'png',
     'savefig.bbox': 'tight',
-    'savefig.pad_inches': 0.1
+    'savefig.pad_inches': 0.1,
+    'savefig.facecolor': palette['spaceCadet'],
+    'savefig.edgecolor': palette['cordovan'],
+
+
+    'text.color': palette['cordovan'],
+
 }
 plt.rcParams.update(mpl_style)
-plt.style.use('dark_background')
+# plt.style.use('dark_background')
 
 
 def init_database():
@@ -94,7 +107,7 @@ def plot_last_30_days_bar_chart(df):
 
     # Plot the bar chart
     plt.figure(figsize=(8, 4.8))
-    plt.bar(daily_data.index, daily_data.values, align='edge')
+    plt.bar(daily_data.index, daily_data.values, align='edge', color=palette['cordovan'])
     plt.ylim(0, 30)
     plt.ylabel('Snesených vajec')
     plt.title('Snáška posledních 30 dnů')
@@ -110,7 +123,7 @@ def plot_last_30_days_bar_chart(df):
         plt.xlim([daily_data.index[0], daily_data.index[-1]+pd.DateOffset(days=1)])
 
     plt.tight_layout()
-    # plt.show()
+    plt.show()
     plt.savefig('last_30_days_bar_chart.png')
 
 
@@ -121,7 +134,3 @@ data = pd.DataFrame(mock_data)
 print(data.head())
 
 plot_last_30_days_bar_chart(data)
-
-
-
-
